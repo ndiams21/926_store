@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9e3e3;
+            color: #8b0000;
+            text-align: center;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden; /* Prevent scrolling during animation */
+        }
+        h1 {
+            font-size: 2em;
+            margin: 0;
+            cursor: pointer;
+            position: relative;
+        }
+        h1::after {
+            content: "Click to Open";
+            display: block;
+            font-size: 0.5em;
+            color: #8b0000;
+            margin-top: 10px;
+            opacity: 0.7;
+        }
+        .content {
+            display: none; /* Hide the content initially */
+            font-size: 1.2em;
+            line-height: 1.6;
+            max-width: 90%;
+            animation: openLetter 1s ease-in-out forwards;
+        }
+        .content p {
+            margin: 0;
+        }
+        .content img {
+            height: 100px;
+        }
+        @keyframes openLetter {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #cc0000;
+        }
+        /* Overlay for the new content */
+        .overlay {
+            display: none; /* Hidden by default */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(249, 227, 227, 0.9); /* Semi-transparent background */
+            justify-content: center;
+            align-items: center;
+            z-index: 1; /* Ensure it's on top */
+        }
+        .overlay-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 1001; /* Ensure overlay content is above the overlay */
+        }
+        .overlay-content img {
+            height: 150px;
+            margin-bottom: 15px;
+        }
+        /* Heart animation */
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            animation: float 5s ease-in infinite;
+            z-index: 1; /* Ensure hearts are above everything except the overlay */
+            bottom: 0px;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 onclick="openLetter()">💌 A letter for wifey ❤️</h1>
+    <div class="content" id="letterContent">
+        <p>
+            Dear <span id="name">wifey ❤️</span>,<br>
+            As you're reading this, you are probably wondering "maka datey ba dagay mi ni hubby ugma".
+            And yes, we'll definitely go on a datey tomorrow. 
+            For it's a special day for both of us tomorrow and I'll make it memorable for sure.
+            So, with that said, will you be my miss Valentine? 😍💖🌹<br><br>
+            
+            Your one and only,<br>
+            <span id="your-name">hubby wubby snuggly tubby dubby</span>
+        </p>
+        <br>
+        <img src="bubu-dudu-flower-gift.gif">
+
+        <div class="buttons">
+            <button onclick="showOverlay()">Yes! Cause you love me so and there's no other option. 😘💋✨</button>
+        </div>
+    </div>
+
+    <!-- Overlay for the new content -->
+    <div class="overlay" id="overlay">
+        <div class="overlay-content">
+            <img src="40da73b65cdfd31672a8f28e67fb41ba.gif" alt="Celebration GIF">
+            <p>Dudububu all lovey dovey abi 😚💗💐</p>
+        </div>
+    </div>
+
+    <script>
+        function openLetter() {
+            // Hide the <h1> element
+            document.querySelector('h1').style.display = 'none';
+            // Show the letter content with animation
+            document.getElementById('letterContent').style.display = 'block';
+        }
+
+        function showOverlay() {
+            // Show the overlay with the new content
+            document.getElementById('overlay').style.display = 'flex';
+
+            // Create heart animations
+            createHearts();
+        }
+
+        function createHearts() {
+            const heartEmojis = ['❤️', '💕', '💞', '💓', '💗', '💖', '💘', '💝']; // List of heart emojis
+            const numHearts = 20; // Number of hearts to create
+            for (let i = 0; i < numHearts; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)]; // Random heart emoji
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
+                heart.style.animationDuration = Math.random() * 3 + 2 + 's'; // Random animation speed
+                document.body.appendChild(heart);
+
+                // Remove hearts after animation ends
+                heart.addEventListener('animationend', () => {
+                    heart.remove();
+                });
+            }
+        }
+    </script>
+</body>
+</html>
